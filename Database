@@ -1,0 +1,73 @@
+CREATE DATABASE banking;
+
+USE banking;
+
+CREATE TABLE accounts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    account_number VARCHAR(20) NOT NULL UNIQUE,
+    owner_name VARCHAR(100) NOT NULL,
+    balance DECIMAL(15, 2) DEFAULT 0.00,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    account_id INT,
+    type ENUM('deposit', 'withdrawal', 'transfer') NOT NULL,
+    amount DECIMAL(15, 2) NOT NULL,
+    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (account_id) REFERENCES accounts(id)
+);
+
+CREATE TABLE sessions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    account_id INT,
+    session_id VARCHAR(64) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (account_id) REFERENCES accounts(id)
+);
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (role_id) REFERENCES user_roles(id)
+);
+
+CREATE TABLE user_roles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    action VARCHAR(255) NOT NULL,
+    log_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE audit_trails (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    table_name VARCHAR(50) NOT NULL,
+    operation VARCHAR(50) NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    old_value TEXT,
+    new_value TEXT
+);
+
+CREATE TABLE system_settings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    setting_name VARCHAR(100) NOT NULL UNIQUE,
+    setting_value TEXT NOT NULL
+);
+
+CREATE TABLE account_types (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type_name VARCHAR(50) NOT NULL
+);
+
+INSERT INTO account_types (type_name) VALUES ('Savings'), ('Checking');
