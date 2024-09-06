@@ -1,0 +1,60 @@
+package ombing_stack;
+
+import java.util.Stack;
+
+public class Ombing_Stack {
+
+    public static void main(String[] args) {
+       Stack<String> animals = new Stack<>();
+       Stack<String> insect = new Stack<>();
+       Stack<String> friend = new Stack<>();
+       //Animal indicator
+       animals.push("Elephant");
+       animals.push("Penguin");
+       animals.push("Crocodile");
+       //Insect Indicator
+       insect.push("Beetles");
+       insect.push("Mosquito");
+       insect.push("Fly");
+       //Fucking Friends Indicator
+       friend.push("Kenneth");
+       friend.push("Josh");
+       friend.push("Honey");
+       friend.push("Jed");
+       friend.push("Arniel");
+      //Print all the animals insect and friend
+       System.out.println("Animal stack:" + animals);
+       System.out.println("Insect Stack:" + insect);
+       System.out.println("Friends Stack:" + friend);
+       //Print the top value
+       System.out.println("Top Element of Animal stack:" + animals.peek());
+       System.out.println("Top Element of Insect stack:" + insect.peek());
+       System.out.println("Top Element of Friend stack:" + friend.peek());
+       //Print If there is a value
+       System.out.println("Is the animal stack empty?:" + animals.empty());
+       System.out.println("Is the insect stack empty?:" + insect.empty());
+       System.out.println("Is the friend stack empty?:" + friend.empty());
+       //Add another animals
+       animals.push("Dog");
+       animals.push("Cat");
+       //Print the new stack
+       System.out.println("Animal stack:" + animals);
+       //Print the max stack size
+       int maxSize=5;
+       System.out.println("Is the animal stack full?:"+(animals.size()== maxSize));
+       System.out.println("Is the insect stack full?:"+(insect.size()== maxSize));
+       System.out.println("Is the friend stack full?:"+(friend.size()== maxSize));
+       //Search The animals
+       int animalPosition = animals.search("Penguin");
+       System.out.println("The position of penguin in the stack is:"+animalPosition);
+       //Search the insect
+       int insectPosition = insect.search("Mosquito");
+       System.out.println("The position of mosquito in the stack is:"+insectPosition);
+       //Get Erase the Value
+       System.out.println("Insect Pop:"+insect.pop());
+       System.out.println("Insect Pop:"+insect.pop());
+       System.out.println("Insect Stack:" + insect);
+       
+    }
+    
+}
